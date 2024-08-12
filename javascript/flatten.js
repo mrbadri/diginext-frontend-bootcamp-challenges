@@ -10,8 +10,33 @@
  *
  */
 function flatten(object) {
-  // TODO: Implement here
+  const obj = {};
+
+  const helper = (object, preKey = "") => {
+    for (key in object) {
+      const val = object[key];
+      const newKey = preKey + key;
+
+      if (typeof val === "object" && val !== null && !Array.isArray(val)) {
+
+        helper(object[key], newKey + ".");
+      } else {
+        return (obj[newKey] = val);
+      }
+    }
+  };
+
+  helper(object);
+
+  return obj;
 }
+
+const result = flatten({
+  a: { b: { c: { d: "test2" } } },
+  bb: { b: { c: { d: "test3" } }, ali: 123 },
+});
+
+console.log(result);
 
 /**
  * Returns a nested object. Remember that the level of nesting is not specified.
@@ -24,5 +49,5 @@ function flatten(object) {
  *
  */
 function revertFlatten(object) {
-  // TODO: Implement here
+  
 }
